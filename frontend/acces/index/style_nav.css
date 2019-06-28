@@ -1,0 +1,15 @@
+#arriba{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+}
+a{
+  cursor:pointer;
+  padding:6px;
+  border-radius:10px;
+  user-select:none;
+  outline:none;
+  box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display:flex;align-items:center;justify-content:center;padding:10px;
+  color:black;text-decoration:none;
+}  

@@ -1,0 +1,92 @@
+#chatWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#chat{
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:1fr auto;
+    background-color:#424242;
+    overflow: hidden;
+    height: 90vh; 
+    width: 100vw;
+}
+#waiting{
+    display: none;
+    justify-content: center;
+}
+#messages{
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-end;
+    grid-row:1/2;
+    grid-column:1/2;
+    padding-top:5px;
+    height: 100%;
+    min-height: min-content;
+}
+#messagesWrapper{
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+#chat .message{
+    max-width:50%;
+    margin: 0 10px 10px 10px;
+    padding: 3px;
+    background-color: #E0E0E0;
+    color:black;
+    border-radius: 7px;
+}
+#chat .message.me{
+    align-self: flex-end;
+}
+#chat .message .user{
+    display: grid;
+    grid-template-columns: 50px auto;
+    grid-template-rows: 20px 30px;
+}
+#chat .message .userName{
+    display: flex;
+    position: relative;
+    margin-left: 10px;
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+#chat .message .userText{
+    margin: 5px 2px 2px 20px;
+}
+#chat .message .userImg{
+    grid-row: 1/2;
+    grid-column: 1/2;
+    border-radius: 50%;
+}
+#chat .message .userDate{
+    grid-row: 2/3;
+    grid-column: 2/3;
+    margin-left: 20px;
+    font-size: 12px;
+}
+#newMessage{
+    display:grid;
+    grid-template-columns:1fr 45px;
+    grid-gap:5px;
+    width:96%;
+    margin:7px;
+}
+#newMessage textarea{
+    grid-column:1/2;
+    padding:7px;
+    border-radius:10px;
+    background-color:#EEEEEE;
+}
+.spinning svg{
+    animation: rotate 0.9s infinite;
+    animation-timing-function: cubic-bezier(0.35, 0.27, 0.15, 0.86);
+}
+@media screen and (min-width: 600px) {
+    #chat{
+        width: 600px;
+    }
+ }

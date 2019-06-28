@@ -1,0 +1,53 @@
+#snackbar {
+    position:fixed;
+    display:grid;
+    grid-template-columns:auto auto;
+    grid-gap:10px;  
+    visibility:hidden;
+    min-width:300px;
+    background-color:#333;
+    color:#000;
+    text-align:center;
+    justify-content:space-around;
+    align-items:center;
+    border-radius:10px;
+    padding:16px;
+    z-index:3;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, 50vh);
+    font-size:12px;
+    transition: all 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+#snackbar [data-snack="text"]{
+    background-color:#fff;
+    padding:10px;
+    border-radius:8px;
+}
+#snackbar img{
+    width:40px;height:40px;
+}
+.circular-loader{
+    animation:rotate 1s linear infinite;
+    transform-origin:center center;
+}
+.loader-path{
+    stroke-dasharray:150,200;
+    stroke-dashoffset:-10;
+    animation:dash 2s ease-in-out infinite, color 2s ease-in-out infinite;
+    stroke-linecap: round;
+}
+@keyframes rotate{
+    100%{transform:rotate(360deg);}
+}
+@keyframes dash{
+    0%{stroke-dasharray:1,200;stroke-dashoffset:0;}
+    50%{stroke-dasharray:89,200;stroke-dashoffset:-35;}
+    100%{stroke-dasharray:89,200;stroke-dashoffset:-124;}
+}
+@keyframes color{
+    0%{stroke:#70c542;}
+    40%{stroke:#70c542;}
+    66%{stroke:#70c542;}
+    80%,90%{stroke:#70c542;}
+}

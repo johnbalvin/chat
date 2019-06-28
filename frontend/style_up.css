@@ -1,0 +1,8 @@
+#up{
+    height:40px;
+    padding:5px;
+    background-color:var(--up);
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}

@@ -1,0 +1,50 @@
+#perfilWrapper{
+    display:grid;
+    grid-template-columns:auto auto;
+    grid-gap:10px;
+}
+#fotoMenu1{
+    cursor: pointer;    
+    background-color: transparent;
+}
+#fotoMenu1 img{
+    border-radius: 50%;
+}
+#optionsPerfil{
+    width:200px; 
+    top:35px;
+    right:-210px;
+    transition:0.2s cubic-bezier(.785,.135,.15,.86);
+}
+#optionsPerfil{
+    display:none;
+    grid-template-columns:1fr;
+    grid-gap:7px;
+    position: fixed;
+    background-color: var(--fondoOptions);
+    color:var(--letra1);
+    z-index: 2;
+}
+#optionsPerfil .icono{
+    width:20px;
+    height:20px;
+}
+#optionsPerfil .option{
+    display: flex;
+    justify-content:flex-start;
+    align-items:center;
+    font-size: 16px;
+    cursor: pointer;
+}
+#optionsPerfil .option{
+    padding:10px;
+}
+#optionsPerfil .option .icono{
+    margin-right: 7px;
+}
+#nameMenu1{
+    font-size:0.9em;
+    color:var(--letra1);
+    margin-top: 10px;
+}
+
