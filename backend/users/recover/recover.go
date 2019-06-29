@@ -1,10 +1,10 @@
 package recover
 
 import (
-	"context"
-	"fmt"
 	"chat/backend/errors"
 	"chat/backend/users"
+	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -44,10 +44,10 @@ func Step1(emailUser string) error {
 		return err
 	}
 	fmt.Println(code)
-	/*	body := strings.Replace(bodyCode, "{{code}}", code, 1) //uncoment if you already configure mailgun
-		if err := mg.Send(email, subject, body); err != nil {
-			log.Println("register -> Step1:3 -> err:", err)
-			return err
+	/*body := strings.Replace(bodyCode, "{{code}}", code, 1)//uncoment if you already configure mailgun
+	if err := mg.Send(emailUser, subject, body); err != nil {
+		log.Println("register -> Step1:3 -> err:", err)
+		return err
 	}*/
 	return nil
 }

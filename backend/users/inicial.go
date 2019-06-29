@@ -9,8 +9,6 @@ import (
 
 var clienteFS = clients.Firestore()
 
-var mg = clients.Mailgun()
-
 //User contains user information
 type User struct {
 	ID              string `json:"-"`

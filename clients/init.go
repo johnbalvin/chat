@@ -1,31 +1,16 @@
 package clients
 
-import (
-	"log"
-	"os"
-)
+import "log"
 
 //ProjectID is the proyect ID
-var ProjectID, bucketName, url string
+var ProjectID = "" //inset your project ID
+var bucketName, url string
 
 //dev feature production
 func init() {
-	gitFlow := os.Getenv("GitFlow")
-	log.Println("GitFlow: ", gitFlow)
-	switch gitFlow {
-	case "master":
-		ProjectID = "" //Project ID, for this git branch
-	case "dev":
-		ProjectID = "" //Project ID, for this git branch
-	case "qa":
-		ProjectID = "" //Project ID, for this git branch
-	case "feature":
-		ProjectID = "" //Project ID, for this git branch
-	default:
-		ProjectID = "" //Project ID, for this git branch
+	if ProjectID == "" {
+		log.Fatalf("You haven't assing a projectID, create one at https://console.cloud.google.com")
 	}
 	bucketName = ProjectID + ".appspot.com"
 	url = "https://storage.googleapis.com/" + bucketName + "/"
-
-	log.Println("ProjectID: ", ProjectID)
 }

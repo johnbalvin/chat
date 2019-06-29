@@ -14,6 +14,7 @@ import (
 func handleSettings(r *mux.Router) {
 	r.HandleFunc("/Settings", settings)
 }
+
 func settings(w http.ResponseWriter, r *http.Request) {
 	r.Body = http.MaxBytesReader(w, r.Body, 2e+6)
 	trackerID, userID, sessionID, _ := sessions.ReadAndAsignCookie(w, r)
