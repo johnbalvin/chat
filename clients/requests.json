@@ -1,0 +1,169 @@
+[
+  {
+    "mode": "REQUIRED", 
+    "name": "TrackerID", 
+    "type": "STRING"
+  }, 
+  {
+    "fields": [
+      {
+        "mode": "REQUIRED", 
+        "name": "ID", 
+        "type": "STRING"
+      }, 
+      {
+        "mode": "REQUIRED", 
+        "name": "SessionNumber", 
+        "type": "STRING"
+      }, 
+      {
+        "mode": "REQUIRED", 
+        "name": "SessionID", 
+        "type": "STRING"
+      }
+    ], 
+    "mode": "REQUIRED", 
+    "name": "User", 
+    "type": "RECORD"
+  }, 
+  {
+    "fields": [
+      {
+        "mode": "REQUIRED", 
+        "name": "DeviceType", 
+        "type": "STRING"
+      }, 
+      {
+        "fields": [
+          {
+            "mode": "REQUIRED", 
+            "name": "Name", 
+            "type": "STRING"
+          }, 
+          {
+            "fields": [
+              {
+                "mode": "REQUIRED", 
+                "name": "Major", 
+                "type": "INTEGER"
+              }, 
+              {
+                "mode": "REQUIRED", 
+                "name": "Minor", 
+                "type": "INTEGER"
+              }, 
+              {
+                "mode": "REQUIRED", 
+                "name": "Patch", 
+                "type": "INTEGER"
+              }
+            ], 
+            "mode": "REQUIRED", 
+            "name": "Version", 
+            "type": "RECORD"
+          }
+        ], 
+        "mode": "REQUIRED", 
+        "name": "Browser", 
+        "type": "RECORD"
+      }, 
+      {
+        "fields": [
+          {
+            "mode": "REQUIRED", 
+            "name": "Platform", 
+            "type": "STRING"
+          }, 
+          {
+            "mode": "REQUIRED", 
+            "name": "Name", 
+            "type": "STRING"
+          }, 
+          {
+            "fields": [
+              {
+                "mode": "REQUIRED", 
+                "name": "Major", 
+                "type": "INTEGER"
+              }, 
+              {
+                "mode": "REQUIRED", 
+                "name": "Minor", 
+                "type": "INTEGER"
+              }, 
+              {
+                "mode": "REQUIRED", 
+                "name": "Patch", 
+                "type": "INTEGER"
+              }
+            ], 
+            "mode": "REQUIRED", 
+            "name": "Version", 
+            "type": "RECORD"
+          }
+        ], 
+        "mode": "REQUIRED", 
+        "name": "OS", 
+        "type": "RECORD"
+      }
+    ], 
+    "mode": "REQUIRED", 
+    "name": "UserAgent", 
+    "type": "RECORD"
+  },
+  {
+    "mode": "REQUIRED", 
+    "name": "RemoteAddr", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "ForwardedFor", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Referer", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "URL", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Method", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "IP", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Port", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Host", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Timestamp", 
+    "type": "INTEGER"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Headers", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "ContentLength", 
+    "type": "INTEGER"
+  }
+]

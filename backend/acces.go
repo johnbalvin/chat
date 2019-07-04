@@ -1,6 +1,5 @@
 package main
 
-
 import (
 	"chat/backend/errors"
 	"chat/backend/sessions"
@@ -16,27 +15,11 @@ import (
 )
 
 func handleAcces(r *mux.Router) {
-	r.HandleFunc("/", index)
-	r.HandleFunc("/Login", login)
-	r.HandleFunc("/Close", closeSession).Methods("GET")
-	r.HandleFunc("/Register", registerAccount)
-	r.HandleFunc("/ResetPassword", recoverAccount)
+	r.HandleFunc("/login", login)
+	r.HandleFunc("/close", closeSession).Methods("GET")
+	r.HandleFunc("/signup", signup)
+	r.HandleFunc("/reset", resetpassword)
 }
-func index(w http.ResponseWriter, r *http.Request) {
-	trackerID, userID, sessionID, _ := sessions.ReadAndAsignCookie(w, r)
-	if userID == "" {
-		w.Write(sevirHTMLSinData["frontEnd/acces/index/index.html"])
-		return
-	}
-	_, err := sessions.Confirm(userID, sessionID)
-	if err != nil {
-		sessions.SetCookie(trackerID, "", "", w)
-		log.Println("main -> index:1 -> err:", err)
-		return
-	}
-	http.Redirect(w, r, "/Chat", http.StatusSeeOther)
-}
-
 func login(w http.ResponseWriter, r *http.Request) {
 	trackerID, userID, sessionID, _ := sessions.ReadAndAsignCookie(w, r)
 	if r.Method == "GET" {
@@ -50,7 +33,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 			log.Println("main -> login:1 -> err:", err)
 			return
 		}
-		http.Redirect(w, r, "/Chat", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else if r.Method == "POST" {
 		email := html.EscapeString(strings.ToLower(strings.TrimSpace(r.FormValue("email"))))
 		if email == "" {
@@ -76,7 +59,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		}
 		if !isEqual {
 			w.WriteHeader(http.StatusUnprocessableEntity)
-			log.Println("main -> login:5 -> no es igual")
+			log.Println("main -> login:5 -> not equal")
 			return
 		}
 		if _, _, err := sessions.Start(trackerID, user, w, r); err != nil {
@@ -86,20 +69,20 @@ func login(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-func registerAccount(w http.ResponseWriter, r *http.Request) {
+func signup(w http.ResponseWriter, r *http.Request) {
 	trackerID, userID, sessionID, _ := sessions.ReadAndAsignCookie(w, r)
 	if r.Method == "GET" {
 		if userID == "" {
-			w.Write(sevirHTMLSinData["frontEnd/acces/register/index.html"])
+			w.Write(sevirHTMLSinData["frontEnd/acces/signup/index.html"])
 			return
 		}
 		_, err := sessions.Confirm(userID, sessionID)
 		if err != nil {
 			sessions.SetCookie(trackerID, "", "", w)
-			log.Println("main -> registerAccount:1 -> err:", err)
+			log.Println("main -> signup:1 -> err:", err)
 			return
 		}
-		http.Redirect(w, r, "/Chat", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else if r.Method == "POST" {
 		email := html.EscapeString(strings.ToLower(strings.TrimSpace(r.FormValue("email"))))
 		if email == "" {
@@ -111,11 +94,11 @@ func registerAccount(w http.ResponseWriter, r *http.Request) {
 			err := register.Step1(email)
 			if err == errors.Duplicated {
 				w.WriteHeader(http.StatusConflict)
-				log.Println("main -> registerAccount:2 -> err:", err)
+				log.Println("main -> signup:2 -> err:", err)
 				return
 			} else if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> registerAccount:3 -> err:", err)
+				log.Println("main -> signup:3 -> err:", err)
 				return
 			}
 		case "2":
@@ -123,15 +106,15 @@ func registerAccount(w http.ResponseWriter, r *http.Request) {
 			err := register.Step2(email, codeEmail)
 			if err == errors.TimesOut {
 				w.WriteHeader(http.StatusForbidden)
-				log.Println("main -> registerAccount:4 -> err:", err)
+				log.Println("main -> signup:4 -> err:", err)
 				return
 			} else if err == errors.Empty {
 				w.WriteHeader(http.StatusConflict)
-				log.Println("main -> registerAccount:5 -> err:", err)
+				log.Println("main -> signup:5 -> err:", err)
 				return
 			} else if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> registerAccount:6 -> err:", err)
+				log.Println("main -> signup:6 -> err:", err)
 				return
 			}
 		case "3":
@@ -139,90 +122,90 @@ func registerAccount(w http.ResponseWriter, r *http.Request) {
 			pass := r.FormValue("pass")
 			code := r.FormValue("code")
 			if len(name) < 0 || len(pass) > 100 { //se supone que esto ya se lo valida desde el cliente
-				log.Println("main -> registerAccount:7 -> name:", name, " pass: ", pass)
+				log.Println("main -> signup:7 -> name:", name, " pass: ", pass)
 				return
 			}
 			user, err := register.Step3(email, code, pass, name)
 			if err == errors.TimesOut {
 				w.WriteHeader(http.StatusForbidden)
-				log.Println("main -> registerAccount:8 -> err:", err)
+				log.Println("main -> signup:8 -> err:", err)
 				return
 			} else if err == errors.Empty {
 				w.WriteHeader(http.StatusConflict)
-				log.Println("main -> registerAccount:9 -> err:", err)
+				log.Println("main -> signup:9 -> err:", err)
 				return
 			} else if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> registerAccount:10 -> err:", err)
+				log.Println("main -> signup:10 -> err:", err)
 				return
 			}
 			if _, _, err := sessions.Start(trackerID, user, w, r); err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> registerAccount:11 -> err:", err)
+				log.Println("main -> signup:11 -> err:", err)
 				return
 			}
 		}
 	}
 }
-func recoverAccount(w http.ResponseWriter, r *http.Request) {
+func resetpassword(w http.ResponseWriter, r *http.Request) {
 	trackerID, userID, _, _ := sessions.ReadAndAsignCookie(w, r)
 	if r.Method == "GET" {
 		if userID == "" {
-			w.Write(sevirHTMLSinData["frontEnd/acces/recover/index.html"])
+			w.Write(sevirHTMLSinData["frontEnd/acces/reset/index.html"])
 			return
 		}
-		http.Redirect(w, r, "/Chat", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else if r.Method == "POST" {
-		correo := html.EscapeString(strings.ToLower(strings.TrimSpace(r.FormValue("correo"))))
-		paso := r.FormValue("p")
-		switch paso {
+		email := html.EscapeString(strings.ToLower(strings.TrimSpace(r.FormValue("email"))))
+		step := r.FormValue("s")
+		switch step {
 		case "1":
-			err := recover.Step1(correo)
+			err := recover.Step1(email)
 			if err == errors.Empty {
-				w.WriteHeader(http.StatusConflict)
-				log.Println("main -> recoverAccount:1 -> err:", err)
+				w.WriteHeader(http.StatusNoContent)
+				log.Println("main -> resetpassword:1 -> err:", err)
 				return
 			} else if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> recoverAccount:2 -> err:", err)
+				log.Println("main -> resetpassword:2 -> err:", err)
 				return
 			}
 		case "2":
 			codeEmail := r.FormValue("code")
-			err := recover.Step2(correo, codeEmail)
+			err := recover.Step2(email, codeEmail)
 			if err == errors.TimesOut {
 				w.WriteHeader(http.StatusForbidden)
-				log.Println("main -> recoverAccount:3 -> err:", err)
+				log.Println("main -> resetpassword:3 -> err:", err)
 				return
 			} else if err == errors.Empty {
 				w.WriteHeader(http.StatusConflict)
-				log.Println("main -> recoverAccount:4 -> err:", err)
+				log.Println("main -> resetpassword:4 -> err:", err)
 				return
 			} else if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> recoverAccount:5 -> err:", err)
+				log.Println("main -> resetpassword:5 -> err:", err)
 				return
 			}
 		case "3":
 			code := r.FormValue("code")
 			contra := r.FormValue("pass")
-			user, err := recover.Step3(correo, code, contra)
+			user, err := recover.Step3(email, code, contra)
 			if err == errors.Empty {
 				w.WriteHeader(http.StatusForbidden)
-				log.Println("main -> recoverAccount:6 -> err:", err)
+				log.Println("main -> resetpassword:6 -> err:", err)
 				return
 			} else if err == errors.Empty {
 				w.WriteHeader(http.StatusConflict)
-				log.Println("main -> recoverAccount:7 -> err:", err)
+				log.Println("main -> resetpassword:7 -> err:", err)
 				return
 			} else if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> recoverAccount:8 -> err:", err)
+				log.Println("main -> resetpassword:8 -> err:", err)
 				return
 			}
 			if _, _, err := sessions.Start(trackerID, user, w, r); err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				log.Println("main -> recoverAccount:9 -> err:", err)
+				log.Println("main -> resetpassword:9 -> err:", err)
 				return
 			}
 		}

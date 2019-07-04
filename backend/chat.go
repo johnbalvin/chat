@@ -13,17 +13,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-
 type smallInfo struct {
 	UserID string `json:"i"`
 	Photo  string `json:"p"`
 	Name   string `json:"n"`
 }
 
-
 func handleChat(r *mux.Router) {
-	r.HandleFunc("/", index)
-	r.HandleFunc("/Chat", chatHandler)
+	r.HandleFunc("/", chatHandler)
 	r.HandleFunc("/UsersData", usersData).Methods("POST")
 }
 
@@ -74,12 +71,12 @@ func chatHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.Method == "POST" {
-		if userID == "" { //means no user
-			return
-		}
 		c := r.FormValue("c")
 		switch c {
 		case "n": //new message
+			if userID == "" { //means no user
+				return
+			}
 			m := r.FormValue("m")
 			_, err := chat.AddMsg(user, m)
 			if err == errors.TimesOut {

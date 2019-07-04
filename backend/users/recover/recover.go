@@ -6,11 +6,11 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"math/rand"
+	"strconv"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
-
-	"chat/backend/codifications"
 
 	"cloud.google.com/go/firestore"
 	"google.golang.org/grpc"
@@ -34,7 +34,7 @@ func Step1(emailUser string) error {
 		log.Println("recover -> Step1:1 -> err:", err)
 		return err
 	}
-	code := codifications.RandomNumbersLetters(5)
+	code := strconv.Itoa(rand.Intn(89999) + 100000)
 	ctx := context.Background()
 	recoverPass := Info{Code: code, UserID: user.ID, Created: time.Now().UTC()}
 	recoverPass.Expire = recoverPass.Created.Add(time.Minute * 10)

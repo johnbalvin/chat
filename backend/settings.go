@@ -19,13 +19,13 @@ func settings(w http.ResponseWriter, r *http.Request) {
 	r.Body = http.MaxBytesReader(w, r.Body, 2e+6)
 	trackerID, userID, sessionID, _ := sessions.ReadAndAsignCookie(w, r)
 	if userID == "" {
-		http.Redirect(w, r, "/Login", http.StatusSeeOther)
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 	user, err := sessions.Confirm(userID, sessionID)
 	if err != nil {
 		sessions.SetCookie(trackerID, "", "", w)
-		http.Redirect(w, r, "/Login", http.StatusSeeOther)
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		log.Println("main -> settings:1 -> err:", err)
 		return
 	}

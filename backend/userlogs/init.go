@@ -40,21 +40,20 @@ type userAgent struct {
 
 //Request is the info for a request
 type Request struct {
-	TrackerID      string
-	User           user
-	UserAgent      userAgent
-	ConnectionType string
-	RemoteAddr     string
-	ForwardedFor   string
-	Referer        string
-	URL            string
-	Method         string
-	IP             string
-	Port           string
-	Host           string
-	Timestamp      int64
-	Headers        string
-	ContentLength  int64
+	TrackerID     string
+	User          user
+	UserAgent     userAgent
+	RemoteAddr    string
+	ForwardedFor  string
+	Referer       string
+	URL           string
+	Method        string
+	IP            string
+	Port          string
+	Host          string
+	Timestamp     int64
+	Headers       string
+	ContentLength int64
 }
 
 //Preference is the info for a request

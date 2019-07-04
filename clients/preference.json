@@ -1,0 +1,37 @@
+[
+  {
+    "mode": "REQUIRED", 
+    "name": "TrackerID", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Kind", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "DarkMode", 
+    "type": "BOOLEAN"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Bloquer", 
+    "type": "BOOLEAN"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "MaliciousUser", 
+    "type": "BOOLEAN"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Raw", 
+    "type": "STRING"
+  }, 
+  {
+    "mode": "REQUIRED", 
+    "name": "Timestamp", 
+    "type": "STRING"
+  }
+]

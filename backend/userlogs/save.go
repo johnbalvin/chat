@@ -54,7 +54,6 @@ func getNormal(r *http.Request) Request {
 	objeto.UserAgent.OS.Version.Minor = ua.OS.Version.Minor
 	objeto.UserAgent.OS.Version.Patch = ua.OS.Version.Patch
 	objeto.UserAgent.DeviceType = ua.DeviceType.String()
-
 	return objeto
 }
 
