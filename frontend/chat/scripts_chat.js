@@ -128,7 +128,7 @@ class Chat{
                 usersID[info.f]=true; //to avoid repeating users ids
             }
         }
-        if (Object.keys(usersID).length>=0){
+        if (Object.keys(usersID).length>0){
             await this.searchUsersData(usersID);
         }
         for(let i=0,tam=messages.length;i<tam;i++){
@@ -142,7 +142,9 @@ class Chat{
             }
             const date=new Date(parseInt(info.w)/1000000);
             nuevo.querySelector(".userText").textContent=info.t;
-            nuevo.querySelector(".userDate").textContent=date.toLocaleString();
+            const userDate=nuevo.querySelector(".userDate");
+            userDate.dataset.when=info.w;
+            userDate.textContent=date.toLocaleString();
             nuevo.querySelector(".spinning").remove();
             this.messages.prepend(nuevo);
         }

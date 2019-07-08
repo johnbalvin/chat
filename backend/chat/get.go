@@ -1,8 +1,8 @@
 package chat
 
 import (
-	"context"
 	"chat/backend/users"
+	"context"
 	"log"
 
 	"cloud.google.com/go/firestore"
